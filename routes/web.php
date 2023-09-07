@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ContactoController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ContactController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,9 +19,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('home', ContactoController::class);
-
-Route::get('home/destroy/{id_medidor}', ['as' => 'contacto/destroy', 'uses'=>'ContactoController@destroy']);
+Route::resource('contacts', ContactController::class);
+Route::get('contacts/{contact}/pdf', [ContactController::class, 'pdf'])->name('contacts.pdf');
